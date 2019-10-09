@@ -1,10 +1,24 @@
 package app;
-
+import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) 
 	{
-		example1();
+		Scanner userInput = new Scanner(System.in);
+		
+		do {
+		System.out.println("Menu");
+		System.out.println("1. Deposit");
+		System.out.println("2. Withdraw");
+		System.out.println("3. Check");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		
+		} while(choice > 1);
+		
+		//example1();
 	}
 	
 	public static void example1()
