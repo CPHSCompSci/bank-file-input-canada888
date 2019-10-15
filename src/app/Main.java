@@ -7,7 +7,8 @@ public class Main {
 		Scanner userInput = new Scanner(System.in);
 		Scanner bankInfo = new Scanner(System.in);
 		
-		Bank newBank = new Bank();
+		
+		Bank newBank = new Bank("Bank of America");
 		int choice = 0;
 		do {
 		System.out.println("Menu");
@@ -17,36 +18,60 @@ public class Main {
 		System.out.println("4. Create");
 		System.out.println("5. Close");
 		System.out.println("6. Transfer");
-		System.out.println("");
+		System.out.println("7. Quit");
 		
 		System.out.println("What would you like to do?");
 		choice = userInput.nextInt();
 		
 		switch(choice)
 		{
-			case 1:
+			case 1://Deposit
 				System.out.println("What is your account number?");
-				String number = bankInfo.next();
+				int number = bankInfo.nextInt();
 				
 				System.out.println("How much would you like to deposit?");
-				String deposit = bankInfo.next();
-				break;
-			case 2:
+				int amountDep = bankInfo.nextInt();
 				
-				break;
-			case 3:
+				newBank.deposit(number, amountDep);
 				
+				System.out.println("Your balance is " + newBank.checkBalance(number));
 				break;
-			case 4:
+				
+			case 2://Withdraw
+				System.out.println("What is your account number?");
+				int numberW = bankInfo.nextInt();
+				
+				System.out.println("How much would you like to withdraw?");
+				int amountWith = bankInfo.nextInt();
+				
+				newBank.withdraw(numberW, amountWith);
+				
+				System.out.println("Your balance is " + newBank.checkBalance(numberW));
+				break;
+				
+			case 3://Check Balance
+				System.out.println("What is your account number");
+				int accountCheck = bankInfo.nextInt();
+				newBank.checkBalance(accountCheck);
+				
+				System.out.println("Your balance is " + accountCheck);
+				break;
+				
+			case 4://Create Account
 				System.out.println("What is your name?");
 				String name = bankInfo.nextLine();
 				int accountNo = newBank.createAccount(name);
 				
 				System.out.println("Your account number is " + accountNo);
 				break;
-			case 5:
+				
+			case 5:// Close Account
+				System.out.println("What is the account numebr?");
+				int accountClose = bankInfo.nextInt();
+				newBank.closeAccount(accountClose);
 				
 				break;
+				
 			case 6:
 				
 				break;
