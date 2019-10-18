@@ -1,6 +1,12 @@
 package app;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Bank {
 	// Variable for logging/not logging
@@ -75,14 +81,72 @@ public class Bank {
 		return account.balance;
 	}
 
-	public void saveAccounts(String filename) {
-		// TODO
-		log("Save not yet implemented.");
+	public void saveAccounts(String fileName) {
+		try {
+			FileWriter fw = new FileWriter(fileName);
+
+			for (Account a : accounts) // enhanced for loop / for each
+			{
+				String message = a.toString() + "/n";
+				fw.append(message);
+			}
+
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		log("Accounts Saved");
 	}
+	
+	public boolean transfer(int account1, int account2, int amount) {
+		withdraw(account1, amount);
+		deposit(account2, amount);
+		return true;
+	}
+	
+	
 
 	public void loadAccounts(String filename) {
-		// TODO
-		log("Load not yet implemented.");
+		// Go through each line
+		// Turn line into account
+		// Put account in ArrayList
+
+		try {
+			Scanner fileScanner = new Scanner(new File(filename));
+
+			while(fileScanner.hasNextLine())
+			{
+				String line = fileScanner.nextLine();
+
+				String[] split = line.split("::");
+				
+				int acctNo = Integer.parseInt(split[0].substring(1));
+				String name = split[1];
+				int amt = Integer.parseInt(split[2].substring(1, split[2].length()-1));
+
+				Account a = new Account(acctNo, name, amt);
+
+				accounts.add(a);
+			}
+
+			fileScanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		log("Loaded file " + filename);
+	}
+	
+	public String accounts()
+	{
+		String out = "";
+		for(Account a: accounts)
+		{
+			out += a.toString();
+		}
+		return out;
 	}
 
 	private Account findAccount(int accountNumber) {
@@ -113,9 +177,17 @@ public class Bank {
 			accountNumber = accountCounter++;
 		}
 
+		private Account(int an, String name, int bal)
+		{
+			this.accountNumber = an;
+			this.name = name;
+			this.balance = bal;
+		}
+
 		public String toString() {
 			return "{" + accountNumber + "::" + name + "::$" + balance + "}";
 		}
+
 
 	}
 }

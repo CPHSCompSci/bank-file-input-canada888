@@ -1,12 +1,18 @@
 package app;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class Main {
 
 	public static void main(String[] args) 
 	{
 		Scanner userInput = new Scanner(System.in);
 		Scanner bankInfo = new Scanner(System.in);
-		
+		File file = new File("records.txt");
 		
 		Bank newBank = new Bank("Bank of America");
 		int choice = 0;
@@ -73,6 +79,8 @@ public class Main {
 				break;
 				
 			case 6:
+				System.out.println("What is your account number?");
+				int num = bankInfo.nextInt();
 				
 				break;
 			
@@ -80,6 +88,8 @@ public class Main {
 		
 		
 		} while(choice >= 1 && choice <= 6);
+		
+		//newBank.saveAccounts(file);
 		
 		//example1();
 	}
@@ -103,4 +113,7 @@ public class Main {
 		bank.checkBalance(howardAccountNo);
 		
 	}
+	
+	
+	
 }
